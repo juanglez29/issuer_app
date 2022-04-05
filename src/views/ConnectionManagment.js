@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from "react";
 //import ReactTable from "react-table";
+import { useLocalStorage } from "../filter_config";
+import Connections from "../components/connections";
 const axios = require('axios');
 
 
@@ -8,19 +10,67 @@ function ConnectionManagment() {
 
     const [list, setList] = useState([]);
     const [url, setUrl] = useState("");
+    const [update, setUpdate] = useState(false);
+    const [filter, setFilter] = useLocalStorage("filter", "");
+    
 
-    useEffect(() => {
-        axios.get('http://localhost:8000/myapi/connections')
+    
+    useEffect(async () => {
+        if(filter==="active"){
+       await axios.get('http://localhost:8000/myapi/connections/active')
+            .then(res => setList(res.data.connections_active))
+           
+        }
+
+       /*  if(filter==="pendinng"){
+            await axios.get('http://localhost:8000/myapi/connections/pending')
+            .then(res => setList(res.data.connections_pending))
+        } */
+
+        else{
+            await axios.get('http://localhost:8000/myapi/connections')
             .then(res => setList(res.data.connections))
-    }, [])
+        }
+        
+    }, [update])
 
 
+    async function getallconn() {
+        try {
+            await axios.get('http://localhost:8000/myapi/connections')
+            .then(setFilter("all"))
+            .then(setUpdate(!update))
+            
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function getpendingconn() {
+        try {
+            await axios.get('http://localhost:8000/myapi/connections/pending')
+            .then(setFilter("pendinng"))
+            .then(setUpdate(!update))
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function getactiveconn() {
+        try {
+            await axios.get('http://localhost:8000/myapi/connections/active')
+            .then(setFilter("active"))
+            .then(setUpdate(!update))
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     async function receiveandaccept(event) {
         try {
             event.preventDefault();
             await axios.post('http://localhost:8000/myapi/connections/accept-invitation', { invitation_url: url })
-            .then(axios.get('http://localhost:8000/myapi/connections').then(res => setList(res.data.connections)))
+            .then(setUpdate(!update));
 
         } catch (error) {
             console.error(error);
@@ -30,7 +80,6 @@ function ConnectionManagment() {
     async function acceptconnection(id) {
         try {
             await axios.post('http://localhost:8000/myapi/connections/accept-connection', { conn_id: id })
-                .then(axios.get('http://localhost:8000/myapi/connections').then(res => setList(res.data.connections)))
 
         } catch (error) {
             console.error(error);
@@ -38,10 +87,11 @@ function ConnectionManagment() {
     }
 
     async function removeconnection(id) {
+        
         try {
             await axios.post('http://localhost:8000/myapi/connections/remove-connection', { conn_id: id })
-                .then(axios.get('http://localhost:8000/myapi/connections').then(res => setList(res.data.connections)))
-
+            .then(setUpdate(!update));
+                
         } catch (error) {
             console.error(error);
         }
@@ -57,45 +107,32 @@ function ConnectionManagment() {
     }
 
     
-    const connectionslist = list.map(connections => {
-        return <tr key={connections.connection_id}>
-            <td> {connections.connection_id}</td>
-            <td> {connections.state}</td>
-            <td> {connections.alias}</td>
-            <td> {connections.their_label}</td>
-            <td> {connections.their_role}</td>
-            <td>
-                {connections.rfc23_state == "request-received" ? <button style={{ width: 150, height: 30 }} onClick={() => acceptconnection(connections.connection_id)}>acceptconnection</button> : null}
-                <button style={{ width: 150, height: 30 }} onClick={() => removeconnection(connections.connection_id)}>removeconnection</button>
-            </td>
-
-        </tr>
-
-    });
-    
 
     const handleInputChange = (event) => {
         setUrl(event.target.value);
     }
 
+    const handleSelectionChange = (event) => {
+        setFilter(event.target.value);
+    }
+
+
     return (
 
         <div>
-            <table >
-                <thead >
-                    <tr >
-                        <th> Connection_id</th>
-                        <th> State</th>
-                        <th> Alias</th>
-                        <th> Their_label</th>
-                        <th> Their_role</th>
-                        <th> Actions </th>
-                    </tr>
 
-                </thead>
-                <tbody style={{ "maxHeight": "1", "overflowY": "scroll" }}>{connectionslist}</tbody>
+            <Connections removeconnection={removeconnection} 
+            acceptconnection={acceptconnection}
+            getallconn={getallconn}
+            getpendingconn={getpendingconn}
+            getactiveconn={getactiveconn}
+            list={list}
+            filter={filter}
+            handleSelectionChange={handleSelectionChange}
+            
+            />
 
-            </table>
+
 
           <h6>Connect with a new agent</h6>
 
