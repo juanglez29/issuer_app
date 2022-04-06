@@ -4,7 +4,11 @@ function Home() {
 
 
     return(
-        <></>
+        <div>
+        
+        <h8>Home page</h8>
+
+        </div>
     )
 }
 

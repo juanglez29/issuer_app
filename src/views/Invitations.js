@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react";
 import QRCode  from "react-qr-code";
 const axios = require('axios');
+//const download = require('react-file-download')
+
 
 function Invitations() {
 
-    const [listinv, setListinv] = useState("");
+    const [inv, setListinv] = useState("");
     const [alias, setAlias] = useState("");
 
 
@@ -33,8 +35,8 @@ function Invitations() {
         </form>
 
         
-        <QRCode value = {listinv} />
-        <p>{listinv}</p>
+        <QRCode value = {inv} />
+        <p>{inv}</p>
         </>
     )
 }

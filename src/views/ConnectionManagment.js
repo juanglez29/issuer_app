@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 //import ReactTable from "react-table";
 import { useLocalStorage } from "../filter_config";
 import Connections from "../components/connections";
+import ConnectWith from "../components/connectwith";
 const axios = require('axios');
 
 
@@ -11,59 +12,51 @@ function ConnectionManagment() {
     const [list, setList] = useState([]);
     const [url, setUrl] = useState("");
     const [update, setUpdate] = useState(false);
+    //const [filter, setFilter] = useState("all");
     const [filter, setFilter] = useLocalStorage("filter", "");
     
 
     
     useEffect(async () => {
-        if(filter==="active"){
-       await axios.get('http://localhost:8000/myapi/connections/active')
-            .then(res => setList(res.data.connections_active))
-           
-        }
-
-       /*  if(filter==="pendinng"){
-            await axios.get('http://localhost:8000/myapi/connections/pending')
-            .then(res => setList(res.data.connections_pending))
-        } */
-
-        else{
+        
+        if(filter==="all"){
+      
             await axios.get('http://localhost:8000/myapi/connections')
             .then(res => setList(res.data.connections))
         }
-        
-    }, [update])
 
-
-    async function getallconn() {
-        try {
-            await axios.get('http://localhost:8000/myapi/connections')
-            .then(setFilter("all"))
-            .then(setUpdate(!update))
-            
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async function getpendingconn() {
-        try {
+        if(filter==="pendinng"){
             await axios.get('http://localhost:8000/myapi/connections/pending')
-            .then(setFilter("pendinng"))
-            .then(setUpdate(!update))
-        } catch (error) {
-            console.error(error);
+            .then(res => setList(res.data.connections_pending))
         }
+
+        if(filter==="active"){
+            await axios.get('http://localhost:8000/myapi/connections/active')
+            .then(res => setList(res.data.connections_active))
+        } 
+        
+    }, [update, setFilter])
+
+
+      function getallconn() {
+    
+             setFilter("all");
+          // setUpdate(!update)
+       
     }
 
-    async function getactiveconn() {
-        try {
-            await axios.get('http://localhost:8000/myapi/connections/active')
-            .then(setFilter("active"))
-            .then(setUpdate(!update))
-        } catch (error) {
-            console.error(error);
-        }
+      function getpendingconn() {
+      
+             setFilter("pendinng");
+          //  setUpdate(!update)
+         
+    }
+
+     function getactiveconn() {
+        
+             setFilter("active");
+            //setUpdate(!update)
+    
     }
 
     async function receiveandaccept(event) {
@@ -80,6 +73,7 @@ function ConnectionManagment() {
     async function acceptconnection(id) {
         try {
             await axios.post('http://localhost:8000/myapi/connections/accept-connection', { conn_id: id })
+            .then(setUpdate(!update));
 
         } catch (error) {
             console.error(error);
@@ -97,9 +91,9 @@ function ConnectionManagment() {
         }
     }
 
-    async function sendmessage() {
+    async function sendmessage(id) {
         try {
-            await axios.post('http://localhost:8000/myapi/connections/send-message', { msg: "88" })
+            await axios.post('http://localhost:8000/myapi/connections/send-message', { msg: "88" }, { conn_id: id })
 
         } catch (error) {
             console.error(error);
@@ -108,14 +102,11 @@ function ConnectionManagment() {
 
     
 
-    const handleInputChange = (event) => {
-        setUrl(event.target.value);
+     function handleInputChange (url) {
+        setUrl(url);
     }
 
-    const handleSelectionChange = (event) => {
-        setFilter(event.target.value);
-    }
-
+    
 
     return (
 
@@ -128,18 +119,15 @@ function ConnectionManagment() {
             getactiveconn={getactiveconn}
             list={list}
             filter={filter}
-            handleSelectionChange={handleSelectionChange}
-            
+            sendmessage={sendmessage}
             />
+            <span>
+                
+            </span>
 
-
-
-          <h6>Connect with a new agent</h6>
-
-            <form onSubmit={receiveandaccept}>
-        <input slaceholder="introduce url invitation" style={{ width: 330, height: 30 }} type= "text" onChange={handleInputChange}/>
-        <button type="submit">Send</button>
-        </form>
+            <ConnectWith handleInputChange={handleInputChange}
+            receiveandaccept={receiveandaccept}
+            />
 
             {/* <button style={{ width: 140, height: 30 }} onClick={sendmessage}>sendmessage</button> */}
 

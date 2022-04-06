@@ -10,6 +10,30 @@ exports.getconnections = async (req, res, next) => {
     console.error(error);
   }
 };
+
+
+exports.getActive = async (req, res, next) => {
+  try {
+    const resp = await axios.get("http://localhost:8020/api/connections/active");
+    res.send(resp.data);
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+exports.getPending = async (req, res, next) => {
+  try {
+    const resp = await axios.get("http://localhost:8020/api/connections/pending");
+    res.send(resp.data);
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 exports.createInvitation = async (req, res, next) => {
   try {
     const alias = req.body.alias;
@@ -55,8 +79,8 @@ exports.removeConnection = async (req, res, next) => {
 
 exports.sendMessage = async (req, res, next) => {
   try {
-    const message = req.body;
-    const conn_id = "ddddd";
+    const message = req.body.msg;
+    const conn_id = req.body.conn_id;
     await axios.post(`http://localhost:8020/api/connections/${conn_id}/send-message`, message);
 
   } catch (error) {
