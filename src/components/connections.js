@@ -1,5 +1,7 @@
 
-import React, { useState} from "react"
+import React from "react"
+import {Table} from "react-bootstrap"
+import {Button} from "react-bootstrap"
 
 function Connections(props) {
 
@@ -12,10 +14,11 @@ function Connections(props) {
             <td> {connections.alias}</td>
             <td> {connections.their_label}</td>
             <td> {connections.their_role}</td>
-            <td>
+            <td style={{textAlign: "center"}}>
             {/* {connections.state == ("response" || "active" || "completed") ? <button style={{ width: 150, height: 30 }} onClick={() => props.sendmessage(connections.connection_id)}>sendmessage</button> : null}  */}
-                 {connections.rfc23_state == "request-received" ? <button style={{ width: 150, height: 30 }} onClick={() => props.acceptconnection(connections.connection_id)}>acceptconnection</button> : null} 
-                <button style={{ width: 150, height: 30 }} onClick={() => props.removeconnection(connections.connection_id)}>removeconnection</button>
+                
+                {connections.rfc23_state === "request-received" ? <Button variant="success" style={{ width: 150, height: 30}} onClick={() => props.acceptconnection(connections.connection_id)}>acceptconnection</Button> : null} 
+                {connections.connection_id===null ? null: <Button variant="danger" style={{ width: 150, height: 30 }} onClick={() => props.removeconnection(connections.connection_id)}>removeconnection</Button>}
                 
             </td>
 
@@ -28,17 +31,17 @@ function Connections(props) {
 
     return (
 
-        <>
+        <div style={{marginTop: "2%"}}>
  
-            <p>Show mode:  <select defaultValue={props.filter}>
+            <div>
+            <p>Show mode:  <select style ={{marginLeft: "2%"}} defaultValue={props.filter}>
                 <option value="all" onClick={() => props.getallconn()}>All</option>
                 <option value="pendinng" onClick={() => props.getpendingconn()}>Pending</option> 
                 <option value="active" onClick={() => props.getactiveconn()}>Active</option>
             </select> </p>
+            </div>
             
-            
-
-            <table >
+            <Table style={{ marginTop: "2%", marginBottom: "4%"}} striped bordered hover responsive>
                 <thead >
                     <tr >
                         <th> Connection_id</th>
@@ -50,11 +53,11 @@ function Connections(props) {
                     </tr>
 
                 </thead>
-                <tbody style={{ "maxHeight": "1", "overflowY": "scroll" }}>{connectionslist}</tbody>
+                <tbody  style={{overflowY: "scroll"}}>{connectionslist}</tbody>
 
-            </table>
+            </Table>
 
-        </>
+        </div>
 
     )
 

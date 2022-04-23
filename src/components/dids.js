@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
+import {Table, Button} from "react-bootstrap"
 
 function Dids(props) {
 
@@ -20,12 +21,11 @@ function Dids(props) {
 
         return (
 
-            <>
+            <div>
 
+                <Button variant= "outline-info" onClick={() => props.getalldids()}>Show all ID's</Button>
 
-                <button onClick={() => props.getalldids()}>Show all ID's</button>
-
-                <table >
+                <Table style={{marginTop: "4%"}} striped bordered hover responsive>
                     <thead >
                         <tr >
                             <th> Did</th>
@@ -33,7 +33,7 @@ function Dids(props) {
                         </tr>
 
                     </thead>
-                    <tbody style={{ "maxHeight": "1", "overflowY": "scroll" }}>
+                    <tbody style={{ overflowY: "scroll" }}>
                         <tr key={props.publicdid.did}>
                             <td> {props.publicdid.did}</td>
                             <td> {props.publicdid.posture}</td>
@@ -41,11 +41,9 @@ function Dids(props) {
 
                     </tbody>
 
-                </table>
+                </Table>
 
-
-
-            </>
+            </div>
 
         )
 
@@ -56,15 +54,15 @@ function Dids(props) {
 
             <>
 
+             <Button variant= "info" onClick={() => props.getmypublicdid()}>Get my DID</Button>
 
-
-                <button onClick={() => props.getmypublicdid()}>Get my DID</button>
-                <form onSubmit={props.getdid}>
+             
+                <form style={{marginTop: "2%"}} onSubmit={props.getdid}>
                     <input placeholder="introduce DID" style={{ width: 330, height: 30 }} type="text" onChange={handleInputChange2} />
-                    <button type="submit">Search by DID</button>
+                    <Button variant="primary" size= "sm" style={{marginLeft: "1.6%"}} type="submit">Search by DID</Button>
                 </form>
 
-                <table >
+                <Table style={{marginTop: "1%", maxWidth: "55%"}} striped bordered hover responsive>
                     <thead >
                         <tr >
                             <th> Did</th>
@@ -72,9 +70,9 @@ function Dids(props) {
                         </tr>
 
                     </thead>
-                    <tbody style={{ "maxHeight": "1", "overflowY": "scroll" }}>{didslist}</tbody>
+                    <tbody style={{overflowY: "scroll" }}>{didslist}</tbody>
 
-                </table>
+                </Table>
 
             </>
 

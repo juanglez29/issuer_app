@@ -5,6 +5,7 @@ import ConnectionManagment from './views/ConnectionManagment';
 import Home from './views/home';
 import WalletManagment from './views/WalletManagment';
 import Invitations from './views/Invitations';
+import Issue from './views/Issue';
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
               <NavLink to="/ConnectionManagment">Connection Managment</NavLink>
               <NavLink to="/WalletManagment">Wallet Managment</NavLink>
               <NavLink to="/Invitations">Get Invitations</NavLink>
+              <NavLink to="/Issue">Issue credential</NavLink>
+
             </ul>
           </div>
           <div>
@@ -38,6 +41,7 @@ function App() {
                 <Route path="/ConnectionManagment" element={<ConnectionManagment />} />
                 <Route path="/WalletManagment" element={<WalletManagment/>} />
                 <Route path="/Invitations" element={<Invitations />} />
+                <Route path="/Issue" element={<Issue />} />
               </Routes>
 
           </>
