@@ -1,58 +1,85 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { Button, Form } from "react-bootstrap";
+import Issuecomp from "../components/issuecomp";
 const axios = require('axios');
 
 function Issue() {
 
     const [attr, setAttr] = useState([]);
-    const boddy= [];
-    //const [boddy, setBoddy] = useState([]);
+    const [boddy, setBoddy] = useState([]);
+    const [conn_id, setId] = useState("");
+    const [sch, setSch] = useState("");
+    const [schid, setSchid] = useState("");
+    const [init, setInit] = useState(true);
+
 
     useEffect(async () => {
-
-        await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: 'VZ8cGrF4UX4wcTjq8dB696:2:test:1.8' })
-        .then(res => setAttr(res.data.schema.attrNames))
-        
-    }, [])
+        if (init == false) {
+            await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schid })
+                .then(res => setAttr(res.data.schema.attrNames))
+        }
+   /*      else{
+            await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: 'VZ8cGrF4UX4wcTjq8dB696:2:test:1.05' })
+            .then(res => setAttr(res.data.schema.attrNames))
+        } */
+    }, [init])
 
     function handleInputChange(att, event) {
-        boddy.push({"name": `${att}`, "value":`${event.target.value}`})
-       
+        let b = boddy
+        b.push({ name: `${att}`, value: `${event}` })
+        setBoddy(b)
     }
+
+    function handleinputId(id) {
+        setId(id)
+    }
+
+    function handleinputschema(schem) {
+        setSch(schem)
+    }
+
+    function handleinputinit(schid) {
+        setSchid(schid)
+    }
+
+    function handlebool() {
+        setInit(false);
+    }
+
+    async function issuecred(event) {
+
+        try {
+
+            event.preventDefault();
+            await axios.post('http://localhost:8021/myapi/issue/send-offer/covid', {
+                schema_name: sch,
+                connectionID: conn_id,
+                attributes: boddy
+            })
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     
 
-   async function issuecred(event){
-    try {
-        event.preventDefault();
-        await axios.post('http://localhost:8021/myapi/issue/send-offer/covid', {"schema_name": "test",
-        "connectionID": "7e92c474-b4bb-4d98-9f28-60971339fa65",
-        "attributes": boddy
-    })
+return(
+    <div>
+    <Issuecomp
+    handleInputChange={handleInputChange}
+    handleinputId={handleinputId}
+    handleinputschema={handleinputschema}
+    handleinputinit={handleinputinit}
+    issuecred={issuecred}
+    handlebool={handlebool}
+    attr={attr}
+    init={init}
+    />
 
-    } catch (error) {
-        console.error(error);
-    }
-   }
-
-
-    const atrib = attr.map((att) => {
-        
-        return <div>
-        <p>{att}</p>
-        <input placeholder="introduce field" style={{ width: 330, height: 30 }} type="text" onChange={ (e)=>handleInputChange(att, e)} />
-        </div>
-        
-    }) 
-
-
-    return(
-        <form onSubmit={issuecred}>
-         {atrib}
-        <button type="submit">Submit</button>
-    </form>
-
-        
-       
-   )
+</div>
+)
 }
 
 export default Issue;

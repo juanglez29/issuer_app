@@ -2,7 +2,7 @@ const express=require('express');
 const router = express.Router();
 const conn_controller= require("../controllers/conn_controller.js")
 const wallet_controller= require("../controllers/wallet_controller.js")
-const issue_controller=require("../controllers/issue_controller")
+const issue_controller=require("../controllers/issue_controller.js")
 
 router.get('/connections', conn_controller.getconnections);
 router.get('/connections/active', conn_controller.getActive);
@@ -20,8 +20,9 @@ router.get('/wallet/dids/public', wallet_controller.getpublicdid);
 router.get('/wallet/credentials/schemas/created', wallet_controller.getschemas);
 router.post('/wallet/credentials/schemas', wallet_controller.getschema);
 router.get('/wallet/credentials/definitions/created', wallet_controller.getdefinitions);
-router.post('/wallet/credentials/definitions/', wallet_controller.getdefinition);
+router.post('/wallet/credentials/definitions', wallet_controller.getdefinition);
 
-router.post('issue/send-offer/covid', issue_controller.issuecred)
+router.post('/issue/send-offer/covid', issue_controller.issuecred);
+
 
 module.exports= router; 

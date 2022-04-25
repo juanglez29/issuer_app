@@ -12,7 +12,7 @@ function App() {
   return (
     <>
     <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <h1 className="navbar-brand col-md-3 col-lg-2 me-0 px-3">Issuer App</h1>
+      <h1 className="navbar-brand col-md-3 col-lg-2 me-0 px-3">Issuer App: WHO</h1>
     </header>
 
     <div className="container-fluid">
@@ -22,9 +22,9 @@ function App() {
             <ul className="nav flex-column">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/ConnectionManagment">Connection Managment</NavLink>
-              <NavLink to="/WalletManagment">Wallet Managment</NavLink>
-              <NavLink to="/Invitations">Get Invitations</NavLink>
+              <NavLink to="/WalletManagment">Wallet Managment</NavLink>            
               <NavLink to="/Issue">Issue credential</NavLink>
+              <NavLink to="/Invitations">Get Invitations</NavLink>
 
             </ul>
           </div>
@@ -40,8 +40,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/ConnectionManagment" element={<ConnectionManagment />} />
                 <Route path="/WalletManagment" element={<WalletManagment/>} />
-                <Route path="/Invitations" element={<Invitations />} />
                 <Route path="/Issue" element={<Issue />} />
+                <Route path="/Invitations" element={<Invitations />} />
               </Routes>
 
           </>

@@ -12,7 +12,7 @@ function WalletManagment() {
     const [publicdid, setPublicdid] = useState([]);
     const [did, setDid] = useState("");
     const [publicc, setPublic] = useState(false);
-
+    const [all, setAll] = useState(true);
     const [myschemas, setMychemas] = useState([]);
     const [schema, setSchema] = useState([]);
 
@@ -24,7 +24,6 @@ function WalletManagment() {
 
         await axios.get('http://localhost:8021/myapi/wallet/credentials/schemas/created')
             .then(res => setMychemas(res.data.schemas))
-
 
 
     }, [])
@@ -68,6 +67,7 @@ function WalletManagment() {
             event.preventDefault();
             await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schema })
                 .then(res => setSchema(res.data.schema))
+                .then(setAll(false))
 
         } catch (error) {
             console.error(error);
@@ -85,40 +85,50 @@ function WalletManagment() {
         setSchema(schemaid);
     }
 
+    function handleOnclick() {
+        setAll(true);
+    }
+
+
 
     return (
 
+        <div>
 
-        <div style={{marginTop: "2%"}}>
+            <div style={{ margin: "3%" }}>
 
-           {/*  <NavLink to="/dids">Dids</NavLink>
-            <Routes>
-                <Route path="/dids" element={<Dids />} />
+                <h2 style={{ marginBottom: "2%" }}>DIDs</h2>
 
-            </Routes> */}
+                <Dids
+                    getalldids={getalldids}
+                    getmypublicdid={getmypublicdid}
+                    getdid={getdid}
+                    handleInputChange={handleInputChange}
+                    didlist={didlist}
+                    publicdid={publicdid}
+                    publicc={publicc}
 
-            <Dids
-                getalldids={getalldids}
-                getmypublicdid={getmypublicdid}
-                getdid={getdid}
-                handleInputChange={handleInputChange}
-                didlist={didlist}
-                publicdid={publicdid}
-                publicc={publicc}
+                />
+            </div>
 
-            />
+            <div style={{ margin: "3%" }}>
 
-<div style={{marginTop: "5%"}}>
-            <Credentials 
-                getschema={getschema}
-                handleInputChangeschema={handleInputChangeschema}
-                myschemas={myschemas}
-                schema={schema}
+                <h2 style={{ marginBottom: "2%" }}>schemas</h2>
 
-            />
+                <Credentials
+                    getschema={getschema}
+                    handleInputChangeschema={handleInputChangeschema}
+                    handleOnclick={handleOnclick}
+                    myschemas={myschemas}
+                    schema={schema}
+                    all={all}
+
+                />
+
             </div>
 
         </div>
+
     )
 }
 
