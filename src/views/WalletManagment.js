@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Dids from "../components/dids";
 import Credentials from "../components/credentials";
-import { NavLink, Routes, Route } from 'react-router-dom';
+import { Button } from "react-bootstrap"
 
 const axios = require('axios');
 
@@ -15,7 +15,7 @@ function WalletManagment() {
     const [all, setAll] = useState(true);
     const [myschemas, setMychemas] = useState([]);
     const [schema, setSchema] = useState([]);
-
+    const [news, setNew] = useState(false);
 
     useEffect(async () => {
 
@@ -26,7 +26,7 @@ function WalletManagment() {
             .then(res => setMychemas(res.data.schemas))
 
 
-    }, [])
+    }, [news])
 
 
     async function getalldids() {
@@ -74,7 +74,16 @@ function WalletManagment() {
         }
     }
 
+    async function publish(event) {
+        try {
+            event.preventDefault();
+            await axios.post('http://localhost:8021/myapi/wallet/credentials/vaccination')
+                .then( setNew(!news))
 
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
 
     function handleInputChange(did) {
@@ -114,11 +123,12 @@ function WalletManagment() {
             <div style={{ margin: "3%" }}>
 
                 <h2 style={{ marginBottom: "2%" }}>schemas</h2>
-
+                
                 <Credentials
                     getschema={getschema}
                     handleInputChangeschema={handleInputChangeschema}
                     handleOnclick={handleOnclick}
+                    publish={publish}
                     myschemas={myschemas}
                     schema={schema}
                     all={all}

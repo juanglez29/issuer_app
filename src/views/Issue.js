@@ -8,26 +8,33 @@ function Issue() {
     const [attr, setAttr] = useState([]);
     const [boddy, setBoddy] = useState([]);
     const [conn_id, setId] = useState("");
-    const [sch, setSch] = useState("");
-    const [schid, setSchid] = useState("");
+    const [comment, setComm] = useState("");
+    const [schid, setSch] = useState("");
+    const [schname, setSchname] = useState("");
     const [init, setInit] = useState(true);
 
 
     useEffect(async () => {
         if (init == false) {
             await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schid })
-                .then(res => setAttr(res.data.schema.attrNames))
+                .then((res) => {
+                    setAttr(res.data.schema.attrNames)
+                    setSchname(res.data.schema.name)})
+                
+               
         }
-   /*      else{
-            await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: 'VZ8cGrF4UX4wcTjq8dB696:2:test:1.05' })
-            .then(res => setAttr(res.data.schema.attrNames))
-        } */
+  
+  
     }, [init])
 
     function handleInputChange(att, event) {
         let b = boddy
         b.push({ name: `${att}`, value: `${event}` })
         setBoddy(b)
+    }
+
+    function handleinputcomm(c) {
+        setComm(c)
     }
 
     function handleinputId(id) {
@@ -38,9 +45,9 @@ function Issue() {
         setSch(schem)
     }
 
-    function handleinputinit(schid) {
+  /*   function handleinputinit(schid) {
         setSchid(schid)
-    }
+    } */
 
     function handlebool() {
         setInit(false);
@@ -51,11 +58,13 @@ function Issue() {
         try {
 
             event.preventDefault();
-            await axios.post('http://localhost:8021/myapi/issue/send-offer/covid', {
-                schema_name: sch,
+            await axios.post('http://localhost:8021/myapi/issue/send-offer', {
+                
+                schema_name: schname,
                 connectionID: conn_id,
+                comment: comment,
                 attributes: boddy
-            })
+            }).then(setInit(true))
 
         } catch (error) {
             console.error(error);
@@ -69,9 +78,10 @@ return(
     <div>
     <Issuecomp
     handleInputChange={handleInputChange}
+    handleinputcomm={handleinputcomm}
     handleinputId={handleinputId}
     handleinputschema={handleinputschema}
-    handleinputinit={handleinputinit}
+    //handleinputinit={handleinputinit}
     issuecred={issuecred}
     handlebool={handlebool}
     attr={attr}

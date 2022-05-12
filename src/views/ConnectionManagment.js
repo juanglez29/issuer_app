@@ -86,8 +86,9 @@ function ConnectionManagment() {
         }
     }
 
-    async function acceptconnection(id) {
+    async function acceptconnection(id, event) {
         try {
+            event.preventDefault();
             await axios.post('http://localhost:8021/myapi/connections/accept-connection', { conn_id: id })
                  .then(setUpdate(!update));
 
@@ -96,9 +97,10 @@ function ConnectionManagment() {
         }
     }
 
-    async function removeconnection(id) {
+    async function removeconnection(id, event) {
 
         try {
+            event.preventDefault();
             await axios.post('http://localhost:8021/myapi/connections/remove-connection', { conn_id: id })
                 .then(setUpdate(!update));
 

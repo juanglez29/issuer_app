@@ -27,7 +27,7 @@ function Credentials(props) {
         return (
 
             <>
-
+                <Button variant="secondary" size= "sm" style={{marginBottom: "2%"}} onClick={(e)=> props.publish(e)}>Publish vaccination schema</Button>
                 <form onSubmit={props.getschema}>
                     <input placeholder="introduce SchemaID" style={{ width: 330, height: 30 }} type="text" onChange={handleInputChangeschema2} />
                     <Button variant="primary" size= "sm" style={{marginLeft: "1.6%"}} type="submit">Search by SchemaID</Button>
@@ -60,7 +60,7 @@ function Credentials(props) {
         return (
             <>
 
-                <Button variant= "outline-info" onClick={() => props.handleOnclick()}>See all schemas</Button>
+                <Button variant= "outline-info" style={{marginBottom: "2%"}} onClick={() => props.handleOnclick()}>See all schemas</Button>
 
                 <Table style={{ maxWidth: "55%" }} striped bordered hover responsive>
                     <thead >

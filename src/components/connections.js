@@ -17,8 +17,8 @@ function Connections(props) {
             <td style={{textAlign: "center"}}>
             {/* {connections.state == ("response" || "active" || "completed") ? <button style={{ width: 150, height: 30 }} onClick={() => props.sendmessage(connections.connection_id)}>sendmessage</button> : null}  */}
                 
-                {connections.rfc23_state === "request-received" ? <Button variant="success" style={{ width: 150, height: 30}} onClick={() => props.acceptconnection(connections.connection_id)}>acceptconnection</Button> : null} 
-                {connections.connection_id===null ? null: <Button variant="danger" style={{ width: 150, height: 30 }} onClick={() => props.removeconnection(connections.connection_id)}>removeconnection</Button>}
+                {connections.rfc23_state === "request-received" ? <Button variant="success" style={{ width: 150, height: 30, marginRight: "3%"}} onClick={(e) => props.acceptconnection(connections.connection_id, e)}>acceptconnection</Button> : null} 
+                {connections.connection_id===null ? null: <Button variant="danger" style={{ width: 150, height: 30 }} onClick={(e) => props.removeconnection(connections.connection_id, e)}>removeconnection</Button>}
                 
             </td>
 

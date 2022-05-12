@@ -75,3 +75,12 @@ exports.getdid= async (req, res, next) => {
       console.error(error);
     }
   };
+
+  exports.publish = async (req, res, next) => {
+    try {
+     await axios.post("http://localhost:8020/api/wallet/credentials/vaccination");
+  
+    } catch (error) {
+      console.error(error);
+    }
+  };

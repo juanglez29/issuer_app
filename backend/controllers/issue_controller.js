@@ -5,7 +5,7 @@ const axios = require('axios');
   try {
       
     const cred = req.body; 
-    await axios.post("http://localhost:8020/api/issue/send-offer/covid", cred);
+    await axios.post("http://localhost:8020/api/issue/send-offer/", cred);
    
   } catch (error) {
     console.error(error);
