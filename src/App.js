@@ -12,7 +12,7 @@ function App() {
   return (
     <>
     <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-      <h1 className="navbar-brand col-md-3 col-lg-2 me-0 px-3">Issuer App: WHO</h1>
+      <h1 className="navbar-brand col-md-3 col-lg-2 me-0 px-3">Issuer App: ECDC</h1>
     </header>
 
     <div className="container-fluid">
