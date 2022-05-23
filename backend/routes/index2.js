@@ -3,6 +3,7 @@ const router = express.Router();
 const conn_controller= require("../controllers/conn_controller.js")
 const wallet_controller= require("../controllers/wallet_controller.js")
 const issue_controller=require("../controllers/issue_controller.js")
+const proof_controller= require("../controllers/proof_controller.js")
 
 router.get('/connections', conn_controller.getconnections);
 router.get('/connections/active', conn_controller.getActive);
@@ -24,6 +25,9 @@ router.post('/wallet/credentials/definitions', wallet_controller.getdefinition);
 router.post('/wallet/credentials/vaccination', wallet_controller.publish);
 
 router.post('/issue/send-offer', issue_controller.issuecred);
+
+router.post('/proof/send-request', proof_controller.proofcred);
+router.post('/proof', proof_controller.checkcred);
 
 
 module.exports= router; 
