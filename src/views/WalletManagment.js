@@ -10,11 +10,9 @@ function WalletManagment() {
 
     const [didlist, setDidlist] = useState([]);
     const [publicdid, setPublicdid] = useState([]);
-    const [did, setDid] = useState("");
     const [publicc, setPublic] = useState(false);
     const [all, setAll] = useState(true);
     const [myschemas, setMychemas] = useState([]);
-    const [schema, setSchema] = useState([]);
     const [news, setNew] = useState(false);
 
     useEffect(async () => {
@@ -51,48 +49,17 @@ function WalletManagment() {
         }
     }
 
-    async function getdid(event) {
-        try {
-            event.preventDefault();
-            await axios.post('http://localhost:8021/myapi/wallet/dids/did', { did: did })
-                .then(res => setDidlist(res.data.DID))
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async function getschema(event) {
-        try {
-            event.preventDefault();
-            await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schema })
-                .then(res => setSchema(res.data.schema))
-                .then(setAll(false))
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     async function publish(event) {
         try {
             event.preventDefault();
             await axios.post('http://localhost:8021/myapi/wallet/credentials/vaccination')
-                .then( setNew(!news))
+                .then(setNew(!news))
 
         } catch (error) {
             console.error(error);
         }
     }
 
-
-    function handleInputChange(did) {
-        setDid(did);
-    }
-
-    function handleInputChangeschema(schemaid) {
-        setSchema(schemaid);
-    }
 
     function handleOnclick() {
         setAll(true);
@@ -111,8 +78,6 @@ function WalletManagment() {
                 <Dids
                     getalldids={getalldids}
                     getmypublicdid={getmypublicdid}
-                    getdid={getdid}
-                    handleInputChange={handleInputChange}
                     didlist={didlist}
                     publicdid={publicdid}
                     publicc={publicc}
@@ -125,13 +90,10 @@ function WalletManagment() {
                 <h2 style={{ marginBottom: "2%" }}>schemas</h2>
                 
                 <Credentials
-                    getschema={getschema}
-                    handleInputChangeschema={handleInputChangeschema}
                     handleOnclick={handleOnclick}
                     publish={publish}
                     myschemas={myschemas}
-                    schema={schema}
-                    all={all}
+                    news={news}
 
                 />
 

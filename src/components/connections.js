@@ -10,11 +10,11 @@ function Connections(props) {
   
     const connectionslist = props.list.map(connections => {
         return <tr key={connections.connection_id}>
-            <td  style={{textAlign: "center", width: "26%"}}> {connections.connection_id}</td>
-            <td> {connections.state}</td>
-            <td> {connections.alias}</td>
-            <td> {connections.their_label}</td>
-            <td> {connections.their_role}</td>
+            <td  style={{textAlign: "center", width: "28%"}}> {connections.connection_id}</td>
+            <td style={{textAlign: "center"}}> {connections.state}</td>
+            <td style={{textAlign: "center"}}> {connections.alias}</td>
+            <td style={{textAlign: "center"}}> {connections.their_label}</td>
+            <td style={{textAlign: "center"}}> {connections.their_role}</td>
             <td style={{textAlign: "center"}}>
                 
                 
@@ -42,13 +42,13 @@ function Connections(props) {
             
             <Table style={{ marginTop: "2%", marginBottom: "4%"}} striped bordered hover responsive>
                 <thead >
-                    <tr >
-                        <th> Connection_id</th>
-                        <th> State</th>
-                        <th> Alias</th>
-                        <th> Their_label</th>
-                        <th> Their_role</th>
-                        <th> Actions </th>
+                    <tr>
+                        <th style={{textAlign: "center"}}> Connection_id</th>
+                        <th style={{textAlign: "center"}}> State</th>
+                        <th style={{textAlign: "center"}}> Alias</th>
+                        <th style={{textAlign: "center"}}> Their_label</th>
+                        <th style={{textAlign: "center"}}> Their_role</th>
+                        <th style={{textAlign: "center"}}> Actions </th>
                     </tr>
 
                 </thead>

@@ -42,7 +42,7 @@ function App() {
                 <Route path="/WalletManagment" element={<WalletManagment/>} />
                 <Route path="/Issue" element={<Issue />} />
                 <Route path="/Proof" element={<Proof />} />
-                <Route path="/Check" element={<Check />} />
+                <Route path="/Check" element={<Check/>} />
                 <Route path="/Invitations" element={<Invitations />} />
               </Routes>
 

@@ -35,7 +35,7 @@ function Issuecomp(props) {
                 <Form style={{ marginTop: "2%", marginBottom: "4%" }} onSubmit={props.handlebool}>
 
                 <h4>Select the vaccination schema to be issued</h4>
-                <DropdownButton variant="secondary" style={{ marginTop: "2%", marginBottom: "3%"}}onSelect={handleinputschema2} id="dropdown-basic-button" title="Select schema">
+                <DropdownButton variant="secondary" style={{ marginTop: "2%", marginBottom: "3%"}} onSelect={handleinputschema2} id="dropdown-basic-button" title="Select schema">
                     {schids}
                 </DropdownButton>
 

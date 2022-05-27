@@ -16,7 +16,7 @@ function Issue() {
     const [schname, setSchname] = useState("");
     const [step, setStep] = useState(1);
     const [schemas, setSchemas]= useState([]);
-    const [prog, setProg]=useState(70)
+    const [prog, setProg]=useState(70);
     const [label, setLabel] = useState(" credential issuance: Step 5");
 
 
@@ -39,10 +39,18 @@ function Issue() {
 
 
     function handleInputChange(att, event) {
+
         let b = boddy
-        b.push({ name: `${att}`, value: `${event}` })
-        setBoddy(b)
+        for(var i=0; i<b.length; i=i+1){
+            if(b[i].name === `${att}`){
+            b.splice(i, 1)
+            }
+        }
+
+        b.push({ name: `${att}`, value: `${event}`})
+         setBoddy(b)
     }
+     
 
 
     function handleinputschema(schem) {
@@ -68,7 +76,7 @@ function Issue() {
                 connectionID: connid2,
                 comment: "This is a Covid-19 vaccination certificate",
                 attributes: boddy
-            }).then(setStep(3), setProg(100), setLabel(" credential issuance: issuance finished"))
+            }).then(setStep(3), setProg(100), setLabel(" credential issuance: finished"))
 
         } catch (error) { 
             console.error(error);

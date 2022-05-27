@@ -1,6 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom"
-import { Button, Form, DropdownButton, Dropdown } from "react-bootstrap"
+import {Form, DropdownButton, Dropdown } from "react-bootstrap"
 
 function Proofcomp(props) {
 
@@ -17,8 +17,6 @@ function Proofcomp(props) {
     function handleinputschid2(event) {
         props.handleinputschid(event)
     }
-
-
 
 
     const atrib = props.attr.map((att) => {

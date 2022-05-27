@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from "react";
-//import ReactTable from "react-table";
 import { useLocalStorage } from "../filter_config";
 import Connections from "../components/connections";
 import ConnectWith from "../components/connectwith";
@@ -35,11 +34,6 @@ function ConnectionManagment() {
                 .then(res => setList(res.data.connections_active))
         }
 
-        /* else {
-
-            await axios.get('http://localhost:8000/myapi/connections')
-                .then(res => setList(res.data.connections))
-        } */
 
     }, [update, filter])
 
@@ -146,8 +140,6 @@ function ConnectionManagment() {
                 receiveandaccept={receiveandaccept}
             />
 
-            {/* <button style={{ width: 140, height: 30 }} onClick={sendmessage}>sendmessage</button> */}
-
         </div>
 
     )
@@ -157,13 +149,3 @@ function ConnectionManagment() {
 export default ConnectionManagment;
 
 
-
-/*  async function seeall() {
-     try {
-         await axios.get('http://localhost:8000/myapi/connections')
-         .then(res=> setList(res.data.connections))
-
-     } catch (error) {
-         console.error(error);
-     }
- } */
