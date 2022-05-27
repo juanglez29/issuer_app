@@ -9,7 +9,7 @@ function Credentials(props) {
 
 
     const credlist = props.myschemas.map(schema => {
-        //const atr=  schema.attrNames.forEach(()=> {return <ul>{schema.attrNames}</ul>} )
+        
         return <tr key={schema.id}>
             <td> {schema.ver}</td>
             <td> {schema.id}</td>

@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from "react";
+import {useLocation} from "react-router-dom";
 import Proofcomp from "../components/proofcomp.js";
+import { ProgressBar } from "react-bootstrap";
+
 const axios = require('axios');
 
 function Proof() {
+    const location= useLocation();
+    const {connid} =location.state;
 
     const [attr, setAttr] = useState([]);
     const [boddy, setBoddy] = useState([]);
-    const [connid, setId] = useState("");
-    const [comment, setComm] = useState("");
     const [schid, setSchid] = useState("");
     const [credid, setCredid] = useState("");
     const [prof, setProf] = useState("");
-    const [init, setInit] = useState(true);
-
-
+    const [step, setStep] = useState(1);
+    const [prog, setProg]=useState(14);
+    const [label, setLabel] = useState("verify identity: Step 1");
+     
 
     useEffect(async () => {
-        if (init == false) {
+        if (step == 2) {
             await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schid })
                 .then(res => setAttr(res.data.schema.attrNames))
         }
 
-    }, [init])
+    }, [step])
 
 
     function handleInputChange(att) {
@@ -37,73 +41,56 @@ function Proof() {
         setBoddy(b)
     }
 
-    function handleinputconnId(id) {
-        setId(id)
-    }
-
-    function handleinputcomm(c) {
-        setComm(c)
-    }
 
     function handleinputschid(schid) {
-        setSchid(schid)
+        setSchid(schid) 
     }
     function handleinputcredid(credid) {
         setCredid(credid)
     }
 
     function handlebool() {
-        setInit(false);
+        setStep(2);
+        setProg(28);
+        setLabel("verify identity: Step 2")
     }
+  
 
     async function proofcred() {
 
         try {
         
             await axios.post('http://localhost:8021/myapi/proof/send-request', {
-                comment: comment,
+                comment: "This is a credential request",
                 connectionID: connid,
                 cred_def_id: credid,
                 attributes: boddy,
                 predicates: []
-            }).then(res=> setProf(res.data), setInit(true))
+            }).then(res=> setProf(res.data), setStep(3), setProg(42), setLabel("verify identity: Step 3"))
             
         } catch (error) {
             console.error(error);
         }
-    }
-
-/* 
-    async function verify() {
-
-        try {
-
-            await axios.get('http://localhost:8031/myapi/webhooks')
-            .then(res => console.log(res.data))
-            
-        } catch (error) {
-            console.error(error);
-        }
-    } */
-
+    } 
 
 
 
     return (
         <div>
+           <ProgressBar style={{ marginTop: "1.5%", marginBottom: "4%"}} animated now={prog} label={label}/> 
             <Proofcomp
                 handleInputChange={handleInputChange}
-                handleinputconnId={handleinputconnId}
-                handleinputcomm={handleinputcomm}
                 handleinputcredid={handleinputcredid}
                 handleinputschid={handleinputschid}
                 proofcred={proofcred}
                 handlebool={handlebool}
-                //verify={verify}
                 attr={attr}
-                init={init}
+                step={step}
+                prof={prof}
+                connid={connid}
+            
             />
-        <p>{prof}</p>
+        
         </div>
     )
 }

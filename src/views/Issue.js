@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, ProgressBar } from "react-bootstrap";
+import {useLocation} from "react-router-dom";
 import Issuecomp from "../components/issuecomp";
+
 const axios = require('axios');
 
 function Issue() {
 
+    const location= useLocation();
+    const {connid2} = location.state;
+     
     const [attr, setAttr] = useState([]);
     const [boddy, setBoddy] = useState([]);
-    const [conn_id, setId] = useState("");
-    const [comment, setComm] = useState("");
     const [schid, setSch] = useState("");
     const [schname, setSchname] = useState("");
-    const [init, setInit] = useState(true);
+    const [step, setStep] = useState(1);
+    const [schemas, setSchemas]= useState([]);
+    const [prog, setProg]=useState(70)
+    const [label, setLabel] = useState(" credential issuance: Step 5");
 
 
     useEffect(async () => {
-        if (init == false) {
+
+        if(step == 1){        
+            await axios.get('http://localhost:8021/myapi/wallet/credentials/schemas/created')
+            .then(res => setSchemas(res.data.schemas))
+            }
+
+        if (step == 2) {
             await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schid })
                 .then((res) => {
                     setAttr(res.data.schema.attrNames)
-                    setSchname(res.data.schema.name)})
-                
-               
+                    setSchname(res.data.schema.name)})            
         }
   
-  
-    }, [init])
+    }, [step])
+
+
 
     function handleInputChange(att, event) {
         let b = boddy
@@ -33,24 +44,17 @@ function Issue() {
         setBoddy(b)
     }
 
-    function handleinputcomm(c) {
-        setComm(c)
-    }
-
-    function handleinputId(id) {
-        setId(id)
-    }
 
     function handleinputschema(schem) {
         setSch(schem)
     }
 
-  /*   function handleinputinit(schid) {
-        setSchid(schid)
-    } */
 
     function handlebool() {
-        setInit(false);
+        setStep(2)
+        setProg(84)
+        setLabel("credential issuance: Step 6")
+
     }
 
     async function issuecred(event) {
@@ -61,34 +65,33 @@ function Issue() {
             await axios.post('http://localhost:8021/myapi/issue/send-offer', {
                 
                 schema_name: schname,
-                connectionID: conn_id,
-                comment: comment,
+                connectionID: connid2,
+                comment: "This is a Covid-19 vaccination certificate",
                 attributes: boddy
-            }).then(setInit(true))
+            }).then(setStep(3), setProg(100), setLabel(" credential issuance: issuance finished"))
 
-        } catch (error) {
+        } catch (error) { 
             console.error(error);
         }
     }
 
 
-    
-
 return(
+
     <div>
+    <ProgressBar style={{ marginTop: "1.5%", marginBottom: "4%"}} animated now={prog} label={label}/>
     <Issuecomp
     handleInputChange={handleInputChange}
-    handleinputcomm={handleinputcomm}
-    handleinputId={handleinputId}
     handleinputschema={handleinputschema}
-    //handleinputinit={handleinputinit}
     issuecred={issuecred}
     handlebool={handlebool}
     attr={attr}
-    init={init}
+    schemas={schemas}
+    step={step}
     />
 
 </div>
+
 )
 }
 

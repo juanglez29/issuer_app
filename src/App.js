@@ -24,9 +24,6 @@ function App() {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/ConnectionManagment">Connection Managment</NavLink>
               <NavLink to="/WalletManagment">Wallet Managment</NavLink>            
-              <NavLink to="/Issue">Issue credential</NavLink>
-              <NavLink to="/Proof">Credential request</NavLink>
-              <NavLink to="/Check">Check proof</NavLink>
               <NavLink to="/Invitations">Get Invitations</NavLink>
 
             </ul>

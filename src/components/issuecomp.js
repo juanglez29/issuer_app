@@ -1,5 +1,5 @@
 import React from "react"
-import { Table, Button, Form } from "react-bootstrap"
+import { Button, Form, DropdownButton, Dropdown } from "react-bootstrap"
 
 function Issuecomp(props) {
 
@@ -7,64 +7,39 @@ function Issuecomp(props) {
         props.handleInputChange(att, event.target.value)
     }
 
-    function handleinputId2(event) {
-        props.handleinputId(event.target.value)
-    }
-
-    function handleinputcomm2(event) {
-        props.handleinputcomm(event.target.value)
-    }
 
     function handleinputschema2(event) {
-        props.handleinputschema(event.target.value)
+        props.handleinputschema(event)
     }
 
-    /* function handleinputinit2(event) {
-        props.handleinputinit(event.target.value)
-    } */
 
+    const schids = props.schemas.map(schema => {
+       
+        return <Dropdown.Item eventKey={schema.id}>{schema.id}</Dropdown.Item>
+   
+    });
 
     const atrib = props.attr.map((att) => {
 
-        return <div>
-            <p>{att}</p>
-            <input placeholder="introduce field" style={{ width: 330, height: 30 }} type="text" onBlur={(e) => handleInputChange2(att, e)} />
+        return <div style={{ marginBottom: "1%" }}>
+            <p style={{width:"13%", display: 'inline-block'}}>{att}:</p> 
+            <input placeholder="type the field" style={{width: "12%", height: "5%", display: 'inline-block'}} type="text" onBlur={(e) => handleInputChange2(att, e)}/>
         </div>
 
     })
 
-    if (props.init == false) {
-        return (
-            <>
-                <form onSubmit={props.issuecred}>
-                    {atrib}
-                    <button type="submit">Submit</button>
-                </form>
-            </>
-
-
-        )
-    }
-    else {
+    if (props.step == 1) {
         return (
             <>
 
                 <Form style={{ marginTop: "2%", marginBottom: "4%" }} onSubmit={props.handlebool}>
 
-                    <div>
-                        <input placeholder="introduce schema id" style={{ width: 330, height: 30, marginBottom: "2%" }} type="text" onChange={handleinputschema2} />
-                    </div>
-                    
-                    <div>
-                        <input placeholder="introduce conn_id" style={{ width: 330, height: 30, marginBottom: "2%" }} type="text" onChange={handleinputId2} />
-                    </div>
-                  
-                    <div>
-                        <input placeholder="introduce comment" style={{ width: 330, height: 30 , marginBottom: "2%"}} type="text" onChange={handleinputcomm2} />
-                    </div>
+                <h4>Select the vaccination schema to be issued</h4>
+                <DropdownButton variant="secondary" style={{ marginTop: "2%", marginBottom: "3%"}}onSelect={handleinputschema2} id="dropdown-basic-button" title="Select schema">
+                    {schids}
+                </DropdownButton>
 
-                
-                    <button type="submit">Start issue</button>
+                    <button type="submit">Next</button>
                     
                 </Form>
 
@@ -72,6 +47,29 @@ function Issuecomp(props) {
         )
 
     }
+
+    if (props.step == 2) {
+        return (
+            <> 
+               <form style={{ marginTop: "2%", marginBottom: "3%" }} onSubmit={props.issuecred}>
+                <h4 style={{ marginBottom: "3%" }}>Fill the fields of the Covid credential form </h4>
+                    {atrib}
+                    <button type="submit">Next</button>
+                </form> 
+            </> 
+        )
+    }
+    
+    if (props.step == 3) {
+        return (
+            <>
+               <p>The credential offer has been sent succesfully</p>
+            </>
+
+
+        )
+    }
+   
 
 }
 export default Issuecomp;

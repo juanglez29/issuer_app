@@ -1,106 +1,68 @@
 import React, {useState, useEffect} from "react";
-import { Button, Form} from "react-bootstrap";
-import {FcApproval} from "react-icons/fc"
+import { Button, Form, ProgressBar} from "react-bootstrap";
+import {FcApproval, FcHighPriority, FcInfo} from "react-icons/fc"
+import {Link, useLocation} from "react-router-dom"
 import axios from "axios";
 
 function Check() {
 
-    const [presid, setPresid] = useState("");
+    const location= useLocation();
+    const {presid, connid} = location.state;
     const [listatt, setListatt] = useState({});
-    //const [allow, setAllow] = useState(true);
 
-    async function listpresid(event) {
+    
 
-        try {
-            event.preventDefault();
-            await axios.post('http://localhost:8021/myapi/proof', {presid: presid})
-            .then(res=> setListatt(res.data))
+    useEffect(async () => {
+        await axios.post('http://localhost:8021/myapi/proof', {presid: presid})
+        .then(res=> setListatt(res.data))
+    }, [])
 
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
-    const handleInputChange = (event) => {
-        setPresid(event.target.value);
-    }
 
     const list = Object.entries(listatt).map( ([key, value]) => {
 
-    
-            return <div style={{ marginTop: "2%", marginBottom: "4%"}}>
-            <h5>{key} <FcApproval/></h5><p>{value} </p>
+                return <div style={{ marginTop: "2%", marginBottom: "3%"}}>
+            <h5><FcInfo/> {key}</h5><p style={{ marginLeft: "2%"}}>{value} </p>
                </div>
+            }
       
+    );
 
-    });
+    const age = Object.entries(listatt).map( ([key, value]) => {
+        var currentdate = new Date();
 
+        if (key === "birthday") {
+            var date2 = new Date(value);
+            if ((currentdate.getTime() - date2.getTime()) / 31540000000 <= 18) {
+                return <div style={{ marginTop: "2%", marginBottom: "4%" }}>
+                    <p>This person is under 18 <FcHighPriority/></p>
+                    <button style={{marginTop: "2%"}}><Link to='/' style={{color:'black', textDecoration: 'none'}} state={{connid2: connid }}>Home</Link></button>
+                </div>
+            }
+            else{
+                return <div style={{ marginTop: "2%", marginBottom: "4%" }}>
+               <p>This person is over 18 <FcApproval/></p>
+               <button style={{marginTop: "2%"}}><Link to='/Issue' style={{color:'black', textDecoration: 'none'}} state={{connid2: connid }}>Next</Link></button>
+               </div>
+              }
+        }
+
+});
+   
+
+    
     return  (
-       
-       
-     <div>
-        <div style={{marginTop: "2%"}}>
-        <h6>Please, enter presentation id: </h6>
-        
-        <form onSubmit={listpresid}>
-        <input style={{width: 310, height: 30}} type= "text" onChange={handleInputChange}/>
-        <Button variant= "primary" size ="sm" style={{marginLeft: "1%"}} type="submit">Send</Button>
-        </form>
-        <div style={{marginTop: "2%"}}>{list}</div>
-        </div>
-       
-        </div>
+  
+        <div>
+             <ProgressBar style={{ marginTop: "1.5%", marginBottom: "4%"}} animated now={56} label={"verify identity: Step 4"}/> 
+            <div style={{ marginTop: "2%" }}>{list}</div>
+            <div>{age}</div>
+
+        </div>     
     )
        
 }
 
 export default Check;
 
-/* function Check() {
-
-    const [presid, setPresid] = useState("");
-    const [listatt, setListatt] = useState({});
-
-    async function listpresid(event) {
-
-        try {
-            event.preventDefault();
-            await axios.post('http://localhost:8031/myapi/proof', {presid: presid})
-            .then(res=> setListatt(res.data))
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    const handleInputChange = (event) => {
-        setPresid(event.target.value);
-    }
-
-    const list = Object.entries(listatt).map( ([key, value]) => {
-        
-        return <div>
-            <p>{key} <Form.Check type="checkbox" label={`${value}`}/> </p>
-               </div>
-
-    });
-
-    return  (
-       
-       
-     <div>
-        <div style={{marginTop: "2%"}}>
-        <h6>Please, enter presentation id: </h6>
-        
-        <form onSubmit={listpresid}>
-        <input style={{width: 110, height: 30}} type= "text" onChange={handleInputChange}/>
-        <Button variant= "primary" size ="sm" style={{marginLeft: "1%"}} type="submit">Send</Button>
-        </form>
-        <div style={{marginTop: "2%"}}>{list}</div>
-        </div>
-       
-        </div>
-    )
-       
-} */
 
