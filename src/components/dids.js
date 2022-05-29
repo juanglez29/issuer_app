@@ -21,11 +21,11 @@ function Dids(props) {
 
                 <Button variant="outline-info" onClick={() => props.getalldids()}>Show all ID's</Button>
 
-                <Table style={{ marginTop: "4%", maxWidth: "55%" }} striped bordered hover responsive>
+                <Table variant="dark" style={{ marginTop: "2%", maxWidth: "55%" }} striped bordered hover responsive>
                     <thead >
                         <tr >
                             <th style={{textAlign: "center"}}> Did</th>
-                            <th style={{textAlign: "center"}}> Posture</th>
+                            <th style={{textAlign: "center"}}> Status</th>
                         </tr>
 
                     </thead>
@@ -52,11 +52,11 @@ function Dids(props) {
 
                 <Button variant="info" onClick={() => props.getmypublicdid()}>Get my DID</Button>
 
-                <Table style={{ marginTop: "1%", maxWidth: "55%" }} striped bordered hover responsive>
+                <Table variant="dark" style={{ marginTop: "2%", maxWidth: "55%" }} striped bordered hover responsive>
                     <thead >
                         <tr >
                             <th style={{textAlign: "center"}}> Did</th>
-                            <th style={{textAlign: "center"}}> Posture</th>
+                            <th style={{textAlign: "center"}}> Status</th>
                         </tr>
 
                     </thead>

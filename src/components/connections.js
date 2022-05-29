@@ -17,10 +17,10 @@ function Connections(props) {
             <td style={{textAlign: "center"}}> {connections.their_role}</td>
             <td style={{textAlign: "center"}}>
                 
-                
-                {connections.connection_id===null ? null: <Button variant="danger" style={{ width: "40%", height: "3%", textAlign: "center", padding:0, marginRight: "3%"}} onClick={(e) => props.removeconnection(connections.connection_id, e)}> remove connection</Button>}
-                {(connections.state ===  "active") || (connections.state === "response") ? <Button variant="secondary" style={{ width: "40%", height: "3%", textAlign: "center", padding:0}}><Link to='/Proof' style={{color:'white', textDecoration: 'none', padding:0}} state={{connid: connections.connection_id}}>Issue credential</Link></Button> : null} 
+                {connections.connection_id===null ? null: <Button variant="danger" style={{ width: "40%", height: "3%", textAlign: "center", marginRight: "3%", padding:0}} onClick={(e) => props.removeconnection(connections.connection_id, e)}>remove connection</Button>}
+                {(connections.state ===  "active") || (connections.state === "response") ? <Button variant="primary" style={{ width: "40%", height: "3%", textAlign: "center", padding:0}}><Link to='/Proof' style={{color:'white', textDecoration: 'none', padding:0}} state={{connid: connections.connection_id}}>Issue credential</Link></Button> : null} 
                 {connections.rfc23_state === "request-received" ? <Button variant="success" style={{width: "40%", height: "3%", textAlign: "center", padding:0}} onClick={(e) => props.acceptconnection(connections.connection_id, e)}>accept connection</Button> : null} 
+            
             </td>
 
         </tr>
@@ -40,7 +40,7 @@ function Connections(props) {
             </select> </p>
             </div>
             
-            <Table style={{ marginTop: "2%", marginBottom: "4%"}} striped bordered hover responsive>
+            <Table variant="dark" style={{ marginTop: "2%", marginBottom: "4%"}} striped bordered hover responsive>
                 <thead >
                     <tr>
                         <th style={{textAlign: "center"}}> Connection_id</th>

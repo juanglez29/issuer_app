@@ -29,21 +29,23 @@ function Proofcomp(props) {
 
    
     if (props.step == 1) {
+
         return (
+            
             <>
                 <Form  style={{ marginTop: "2%", marginBottom: "2%"}} onSubmit={props.handlebool}>
                   
                     <h4>Select the schema and credential definition </h4>
+
                     <DropdownButton variant="secondary" style={{ marginTop: "2%", marginBottom: "1%"}} onSelect={handleinputschid2} id="dropdown-basic-button" title="schema">
-                        <Dropdown.Item eventKey="5zSjAUVLutZmATa97c5cNK:2:covID_PoC_Identity:1.05">5zSjAUVLutZmATa97c5cNK:2:covID_PoC_Identity:1.05 (279629)</Dropdown.Item>
                         <Dropdown.Item eventKey="5zSjAUVLutZmATa97c5cNK:2:covID_PoC_Identity:1.06">5zSjAUVLutZmATa97c5cNK:2:covID_PoC_Identity:1.06 (297813)</Dropdown.Item>
+                        <Dropdown.Item eventKey="5zSjAUVLutZmATa97c5cNK:2:covID_PoC_Identity:1.07">5zSjAUVLutZmATa97c5cNK:2:covID_PoC_Identity:1.07 (299953)</Dropdown.Item>
                     </DropdownButton>
 
                     <DropdownButton variant="secondary" style={{ marginTop: "1%", marginBottom: "4%"}} onSelect={handleinputcredid2} id="dropdown-basic-button" title="credential definition">
-                        <Dropdown.Item eventKey="5zSjAUVLutZmATa97c5cNK:3:CL:279629:covID_PoC_Identity">5zSjAUVLutZmATa97c5cNK:3:CL:279629:covID_PoC_Identity</Dropdown.Item>
-                        <Dropdown.Item eventKey="5zSjAUVLutZmATa97c5cNK:3:CL:297813:covID_PoC_Identity">5zSjAUVLutZmATa97c5cNK:3:CL:297813:covID_PoC_Identity</Dropdown.Item>   
+                        <Dropdown.Item eventKey="5zSjAUVLutZmATa97c5cNK:3:CL:297813:covID_PoC_Identity">5zSjAUVLutZmATa97c5cNK:3:CL:297813:covID_PoC_Identity</Dropdown.Item>
+                        <Dropdown.Item eventKey="5zSjAUVLutZmATa97c5cNK:3:CL:299953:covID_PoC_Identity">55zSjAUVLutZmATa97c5cNK:3:CL:299953:covID_PoC_Identity</Dropdown.Item>   
                     </DropdownButton>
-
 
                     <button type="submit">Next</button>
 

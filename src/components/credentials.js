@@ -3,7 +3,6 @@ import { Table, Button } from "react-bootstrap"
 
 function Credentials(props) {
 
-
     const credlist = props.myschemas.map(schema => {
         
         return <tr key={schema.id}>
@@ -17,8 +16,20 @@ function Credentials(props) {
 
     });
 
+    if(props.myschemas.length==0){
+        return( 
+            
+            <>
+            <Button variant="secondary" size= "sm" style={{marginBottom: "2%"}} onClick={(e)=> props.publish(e)}>Publish vaccination schema</Button>
+            <p>No schemas published yet</p>
+            </>
+        )
+    }
 
-        return (
+    
+        else{ 
+            
+            return (
 
             <>
                 <Button variant="secondary" size= "sm" style={{marginBottom: "2%"}} onClick={(e)=> props.publish(e)}>Publish vaccination schema</Button>
@@ -32,7 +43,6 @@ function Credentials(props) {
                             <th style={{textAlign: "center"}}> version</th>
                             <th style={{textAlign: "center"}}> attributes</th>
                         </tr>
-
                     </thead>
                     <tbody style={{ overflowY: "scroll" }}>
                         {credlist}
@@ -42,6 +52,7 @@ function Credentials(props) {
 
             </>
         )
+            }
     
 }
 

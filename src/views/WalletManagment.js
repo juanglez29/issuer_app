@@ -11,7 +11,6 @@ function WalletManagment() {
     const [didlist, setDidlist] = useState([]);
     const [publicdid, setPublicdid] = useState([]);
     const [publicc, setPublic] = useState(false);
-    const [all, setAll] = useState(true);
     const [myschemas, setMychemas] = useState([]);
     const [news, setNew] = useState(false);
 
@@ -60,13 +59,8 @@ function WalletManagment() {
         }
     }
 
-
-    function handleOnclick() {
-        setAll(true);
-    }
-
-
-
+        
+    
     return (
 
         <div>
@@ -90,7 +84,6 @@ function WalletManagment() {
                 <h2 style={{ marginBottom: "2%" }}>schemas</h2>
                 
                 <Credentials
-                    handleOnclick={handleOnclick}
                     publish={publish}
                     myschemas={myschemas}
                     news={news}
@@ -100,8 +93,8 @@ function WalletManagment() {
             </div>
 
         </div>
-
     )
+    
 }
 
 export default WalletManagment;

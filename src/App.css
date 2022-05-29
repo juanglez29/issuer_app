@@ -4,4 +4,72 @@
     margin-top: 2%;
 }
 
-/* covID_PoC_Vaccination   Kb8H4tgfP1Q2NnR3nTe2G8:2:covID_PoC_Vaccination:1.04 */
+.text{
+    text-align: center;
+}
+
+.bg-colorhead {
+    background-color: #000030;
+    border-style: groove;
+    border-color: #003088;
+    border-width: 6px;
+}
+.bg-color {
+    background-color: #afc4d8;
+    opacity: 1;
+}
+
+.ecdc{
+    display: inline-block;
+    height: 43px;
+    width: 5%;
+    margin: 0.7%;
+    margin-left: 2%;
+}
+
+.edcdtitle{
+    display: inline-block;
+    color: aliceblue;
+    text-align: center;
+    margin-left:1.5%;
+    font-family:'Lucida Console';
+    font-weight: bold;
+}
+
+.link{
+    color: black;
+    text-align: center;
+    margin-bottom: 10%;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style:italic;
+}
+
+.sidebar{
+    width: 14%;
+}
+
+.footer{
+
+    text-align: center;
+    background-color:#dceeff;
+    border-style: groove;
+    border-color: #718ba3;
+    border-width: 4px;
+}
+
+.footerimg{
+    
+    height: 65px;
+    width: 20%;
+
+}
+
+.footerimg2{
+    
+    height: 60px;
+    width: 4%;
+    margin-left:2%;
+    
+}
+ 
+

@@ -52,7 +52,7 @@ function Issuecomp(props) {
         return (
             <> 
                <form style={{ marginTop: "2%", marginBottom: "3%" }} onSubmit={props.issuecred}>
-                <h4 style={{ marginBottom: "3%" }}>Fill the fields of the Covid credential form </h4>
+                <h4 style={{ marginBottom: "3%" }}>Fill in the fields of the vaccination form </h4>
                     {atrib}
                     <button type="submit">Next</button>
                 </form> 

@@ -19,9 +19,9 @@ function ConnectionManagment() {
 
     useEffect(async () => {
 
-        if(filter==="all"){
-        await axios.get('http://localhost:8021/myapi/connections')
-         .then(res => setList(res.data.connections))
+        if (filter === "all") {
+            await axios.get('http://localhost:8021/myapi/connections')
+                .then(res => setList(res.data.connections))
         }
 
         if (filter === "pendinng") {
@@ -40,10 +40,7 @@ function ConnectionManagment() {
 
     async function getallconn() {
         try {
-
             await setFilter("all")
-           // await setUpdate(!update)
-
         } catch (error) {
             console.error(error);
         }
@@ -53,7 +50,6 @@ function ConnectionManagment() {
     async function getpendingconn() {
         try {
             await setFilter("pendinng")
-           // await setUpdate(!update)
         } catch (error) {
             console.error(error);
         }
@@ -63,7 +59,6 @@ function ConnectionManagment() {
     async function getactiveconn() {
         try {
             await setFilter("active")
-           // await setUpdate(!update)
         } catch (error) {
             console.error(error);
         }
@@ -85,7 +80,7 @@ function ConnectionManagment() {
         try {
             event.preventDefault();
             await axios.post('http://localhost:8021/myapi/connections/accept-connection', { conn_id: id })
-                 .then(setUpdate(!update));
+                .then(setUpdate(!update));
 
         } catch (error) {
             console.error(error);
@@ -104,14 +99,14 @@ function ConnectionManagment() {
         }
     }
 
-    async function sendmessage(id) {
+/*     async function sendmessage(id) {
         try {
             await axios.post('http://localhost:8021/myapi/connections/send-message', { msg: "88" }, { conn_id: id })
 
         } catch (error) {
             console.error(error);
         }
-    }
+    } */
 
 
 
@@ -120,29 +115,33 @@ function ConnectionManagment() {
     }
 
 
+    if (list.length == 0) {
+        return (
+            <> <p style={{textAlign: "center", padding:"220px"}}>no connections yet </p></>
+        )
+    }
 
-    return (
+    else {
 
-        <div>
+        return (
 
-            <Connections removeconnection={removeconnection}
-                acceptconnection={acceptconnection}
-                getallconn={getallconn}
-                getpendingconn={getpendingconn}
-                getactiveconn={getactiveconn}
-                list={list}
-                filter={filter}
-                sendmessage={sendmessage}
-            />
-            
+            <div>
 
-            <ConnectWith handleInputChange={handleInputChange}
-                receiveandaccept={receiveandaccept}
-            />
+                <Connections removeconnection={removeconnection}
+                    acceptconnection={acceptconnection}
+                    getallconn={getallconn}
+                    getpendingconn={getpendingconn}
+                    getactiveconn={getactiveconn}
+                    list={list}
+                    filter={filter} />
 
-        </div>
+                <ConnectWith handleInputChange={handleInputChange}
+                    receiveandaccept={receiveandaccept} />
 
-    )
+            </div>
+
+        )
+    }
 
 }
 

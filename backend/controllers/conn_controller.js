@@ -48,7 +48,7 @@ exports.createInvitation = async (req, res, next) => {
 
 exports.acceptInvitation = async (req, res, next) => {
   try {
-    const invitation = req.body; //por qué si lo hago con req.body.invitaton_url, también funciona?
+    const invitation = req.body;
     await axios.post("http://localhost:8020/api/connections/accept-invitation", invitation);
 
   } catch (error) {
