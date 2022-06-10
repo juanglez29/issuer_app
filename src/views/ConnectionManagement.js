@@ -7,7 +7,7 @@ import ConnectWith from "../components/connectwith";
 const axios = require('axios');
 
 
-function ConnectionManagment() {
+function ConnectionManagement() {
 
     const [list, setList] = useState([]);
     const [url, setUrl] = useState("");
@@ -145,6 +145,6 @@ function ConnectionManagment() {
 
 }
 
-export default ConnectionManagment;
+export default ConnectionManagement;
 
 

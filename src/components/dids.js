@@ -7,7 +7,7 @@ function Dids(props) {
     const didslist = props.didlist.map(dids => {
         return <tr key={dids.did}>
             <td style={{textAlign: "center"}}> {dids.did}</td>
-            <td style={{textAlign: "center"}}> {dids.posture}</td>
+            <td style={{textAlign: "center"}}> {dids.posture=="wallet_only" ? "only available in wallet" : "posted on Blockchain"}</td>
         </tr>
 
     });
@@ -21,7 +21,7 @@ function Dids(props) {
 
                 <Button variant="outline-info" onClick={() => props.getalldids()}>Show all ID's</Button>
 
-                <Table variant="dark" style={{ marginTop: "2%", maxWidth: "55%" }} striped bordered hover responsive>
+                <Table variant="dark" style={{ marginTop: "2%", maxWidth: "45%" }} striped bordered hover responsive>
                     <thead >
                         <tr >
                             <th style={{textAlign: "center"}}> Did</th>
@@ -32,7 +32,7 @@ function Dids(props) {
                     <tbody style={{ overflowY: "scroll" }}>
                         <tr key={props.publicdid.did}>
                             <td style={{textAlign: "center"}}> {props.publicdid.did}</td>
-                            <td style={{textAlign: "center"}}> {props.publicdid.posture}</td>
+                            <td style={{textAlign: "center"}}> {props.publicdid.posture=="wallet_only" ? "only available in wallet" : "posted on Blockchain"}</td>
                         </tr>
 
                     </tbody>
@@ -52,7 +52,7 @@ function Dids(props) {
 
                 <Button variant="info" onClick={() => props.getmypublicdid()}>Get my DID</Button>
 
-                <Table variant="dark" style={{ marginTop: "2%", maxWidth: "55%" }} striped bordered hover responsive>
+                <Table variant="dark" style={{ marginTop: "2%", maxWidth: "45%" }} striped bordered hover responsive>
                     <thead >
                         <tr >
                             <th style={{textAlign: "center"}}> Did</th>

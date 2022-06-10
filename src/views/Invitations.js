@@ -33,15 +33,19 @@ function Invitations() {
         <button style={{marginLeft: "2%"}} type="submit">Send</button>
         </form>
         
-        <QRCode style={{marginTop: "2%"}} value = {inv} />
+        <QRCode style={{marginTop: "2%", marginBottom: "1.4%"}} value = {inv} />
         <div className="url">
-            <h6>Invitation URL:</h6>
-           <p>{inv}</p> 
+        <h6>Invitation URL:</h6>
+        <div style={{marginBottom: "2%", marginTop: "1%", height:"30%", width:"62%", backgroundColor: "#e6ccff"}}>
+                <p style={{padding: "1.8%", }}>{inv} </p>
+         </div>
+         
         </div>
       
         </div>
     )
 }
+
 
 export default Invitations;
 

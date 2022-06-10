@@ -21,10 +21,40 @@ function Check() {
 
     const list = Object.entries(listatt).map( ([key, value]) => {
 
-                return <div style={{ marginTop: "2%", marginBottom: "3%"}}>
-            <h5><FcInfo/> {key}</h5><p style={{ marginLeft: "2%"}}>{value} </p>
+        var a= "";
+        if(key=="photo_url"){
+            a= "Photo"
+            return <div style={{ marginTop: "2%", marginBottom: "3%"}}>
+            <h5><FcInfo/> {a}</h5><p style={{ marginLeft: "2%"}}>{value} </p>
                </div>
             }
+        
+        if(key=="full_name"){
+            a= "Full name"
+            return <div style={{ marginTop: "2%", marginBottom: "3%"}}>
+            <h5><FcInfo/> {a}</h5><p style={{ marginLeft: "2%"}}>{value} </p>
+               </div>
+            
+            
+        }
+    
+        if(key=="dni_number"){
+            a= "Dni"
+               return <div style={{ marginTop: "2%", marginBottom: "3%"}}>
+            <h5><FcInfo/> {a}</h5><p style={{ marginLeft: "2%"}}>{value} </p>
+               </div>
+            
+        }
+
+        if(key=="address"){
+            a= "Home adress"
+            return <div style={{ marginTop: "2%", marginBottom: "3%"}}>
+            <h5><FcInfo/> {a}</h5><p style={{ marginLeft: "2%"}}>{value} </p>
+               </div>
+            
+        }  
+    }      
+                
       
     );
 
@@ -35,13 +65,18 @@ function Check() {
             var date2 = new Date(value);
             if ((currentdate.getTime() - date2.getTime()) / 31540000000 <= 18) {
                 return <div style={{ marginTop: "2%", marginBottom: "4%" }}>
-                    <p>This person is under 18 <FcHighPriority/></p>
+                    <div style={{height:"10%", width:"24%", backgroundColor: "#ffe2e2", borderRadius: "19%"}}>
+                    <p style={{padding: "3%", fontSize:"150%"}}>This person is under 18 <FcHighPriority/></p>
+                    </div>
                     <button style={{marginTop: "2%"}}><Link to='/' style={{color:'black', textDecoration: 'none'}} state={{connid2: connid }}>Home</Link></button>
                 </div>
             }
             else{
                 return <div style={{ marginTop: "2%", marginBottom: "4%" }}>
-               <p>This person is over 18 <FcApproval/></p>
+                    <div style={{height:"10%", width:"23%", backgroundColor: "#dce6cd", borderRadius: "19%"}}>
+                    <p style={{padding: "3%", fontSize:"150%"}}>This person is over 18 <FcApproval/></p>
+                    </div>
+               
                <button style={{marginTop: "2%"}}><Link to='/Issue' style={{color:'black', textDecoration: 'none'}} state={{connid2: connid }}>Next</Link></button>
                </div>
               }

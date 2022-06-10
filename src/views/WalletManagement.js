@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap"
 const axios = require('axios');
 
 
-function WalletManagment() {
+function WalletManagement() {
 
     const [didlist, setDidlist] = useState([]);
     const [publicdid, setPublicdid] = useState([]);
@@ -65,9 +65,9 @@ function WalletManagment() {
 
         <div>
 
-            <div style={{ margin: "3%" }}>
+            <div style={{ marginTop: "2%" }}>
 
-                <h2 style={{ marginBottom: "2%" }}>DIDs</h2>
+                <h2 style={{ marginBottom: "1%" }}>DIDs</h2>
 
                 <Dids
                     getalldids={getalldids}
@@ -79,9 +79,9 @@ function WalletManagment() {
                 />
             </div>
 
-            <div style={{ margin: "3%" }}>
+            <div style={{ marginTop: "3%" }}>
 
-                <h2 style={{ marginBottom: "2%" }}>schemas</h2>
+                <h2 style={{ marginBottom: "1%" }}>schemas</h2>
                 
                 <Credentials
                     publish={publish}
@@ -97,4 +97,4 @@ function WalletManagment() {
     
 }
 
-export default WalletManagment;
+export default WalletManagement;
