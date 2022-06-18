@@ -13,8 +13,6 @@ function ConnectionManagement() {
     const [url, setUrl] = useState("");
     const [update, setUpdate] = useState(false);
     const [filter, setFilter] = useLocalStorage("filter", "all");
-    //const [filter, setFilter] = useState("all");
-
 
 
     useEffect(async () => {

@@ -15,13 +15,10 @@ router.post('/connections/remove-connection', conn_controller.removeConnection);
 router.post('/connections/send-message', conn_controller.sendMessage);
 
 router.get('/wallet/dids', wallet_controller.getdids);
-router.post('/wallet/dids/did', wallet_controller.getdid);
 router.get('/wallet/dids/public', wallet_controller.getpublicdid);
 
 router.get('/wallet/credentials/schemas/created', wallet_controller.getschemas);
 router.post('/wallet/credentials/schemas', wallet_controller.getschema);
-router.get('/wallet/credentials/definitions/created', wallet_controller.getdefinitions);
-router.post('/wallet/credentials/definitions', wallet_controller.getdefinition);
 router.post('/wallet/credentials/vaccination', wallet_controller.publish);
 
 router.post('/issue/send-offer', issue_controller.issuecred);

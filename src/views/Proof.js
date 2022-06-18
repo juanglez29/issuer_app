@@ -17,8 +17,11 @@ function Proof() {
     const [step, setStep] = useState(1);
     const [prog, setProg]=useState(14);
     const [label, setLabel] = useState("verify identity: Step 1");
-     
-
+    
+    //var date= new Date();
+    //const comp= `${(date.getTime()-567600000000)}`;
+ 
+    
     useEffect(async () => {
         if (step == 2) {
             await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schid })
@@ -60,12 +63,14 @@ function Proof() {
 
         try {
         
+        
             await axios.post('http://localhost:8021/myapi/proof/send-request', {
                 comment: "This is a credential request",
                 connectionID: connid,
                 cred_def_id: credid,
                 attributes: boddy,
                 predicates: []
+                //predicates: [{name: "birthday_epoch", condition: "<=",comparisonValue: comp}]
             }).then(res=> setProf(res.data), setStep(3), setProg(42), setLabel("verify identity: Step 3"))
             
         } catch (error) {

@@ -1,13 +1,10 @@
 import React from "react"
 import {Link} from "react-router-dom"
-import {Table} from "react-bootstrap"
-import {Button} from "react-bootstrap"
+import {Table, Button} from "react-bootstrap"
 
- 
+
 function Connections(props) {
 
-    //const[details, setDetails]= useState(false);
-  
     const connectionslist = props.list.map(connections => {
         return <tr key={connections.connection_id}>
             <td  style={{textAlign: "center", width: "28%"}}> {connections.connection_id}</td>

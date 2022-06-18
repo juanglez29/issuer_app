@@ -49,6 +49,8 @@ function Proofcomp(props) {
     })
 
    
+
+
     if (props.step == 1) {
 
         return (

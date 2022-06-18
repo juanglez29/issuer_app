@@ -25,7 +25,7 @@ function Check() {
         if(key=="photo_url"){
             a= "Photo"
             return <div style={{ marginTop: "2%", marginBottom: "3%"}}>
-            <h5><FcInfo/> {a}</h5><p style={{ marginLeft: "2%"}}>{value} </p>
+            <h5><FcInfo/> {a}</h5><img style={{ width: "8%", height: "10%"}} src={value} />
                </div>
             }
         
@@ -81,6 +81,15 @@ function Check() {
                </div>
               }
         }
+     /*    if (key === "birthday_epoch") {
+            return <div style={{ marginTop: "2%", marginBottom: "4%" }}>
+            <div style={{height:"10%", width:"23%", backgroundColor: "#dce6cd", borderRadius: "19%"}}>
+            <p style={{padding: "3%", fontSize:"150%"}}>This person is over 18 <FcApproval/></p>
+            </div>
+       
+       <button style={{marginTop: "2%"}}><Link to='/Issue' style={{color:'black', textDecoration: 'none'}} state={{connid2: connid }}>Next</Link></button>
+       </div>
+        } */
 
 });
    
