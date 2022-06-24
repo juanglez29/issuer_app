@@ -48,21 +48,22 @@ function Issue() {
             }
         }
 
-        /*   Issue credential with epoch date format 
+        // Issue credential with epoch date format 
         
         if ((att === "expiration") || (att === "date_last_dosis")) {
         var d = new Date(event);
-            b.push({ name: `${att}`, value: `${d.getTime()}` })
+            b.push({ name: `${att}`, value: `${d.getTime()/1000}` })
             setBoddy(b)
          }
 
         else {
             b.push({ name: `${att}`, value: `${event}` })
             setBoddy(b)
-        } */
-       
-            b.push({ name: `${att}`, value: `${event}` })
-            setBoddy(b)
+        } 
+        
+          // Issue credential with YYYY-MM-DD date format
+        //b.push({ name: `${att}`, value: `${event}` })
+          //  setBoddy(b)
     
 
     }

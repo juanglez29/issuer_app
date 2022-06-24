@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import {useLocation} from "react-router-dom";
 import Proofcomp from "../components/proofcomp.js";
 import { ProgressBar } from "react-bootstrap";
-
+import io from 'socket.io-client';
 const axios = require('axios');
 
 function Proof() {
+
+    const [msg, setmsg] = useState("");
+    const socket= io("http://localhost:8021"); 
     const location= useLocation();
     const {connid} =location.state;
-
     const [attr, setAttr] = useState([]);
     const [boddy, setBoddy] = useState([]);
     const [schid, setSchid] = useState("");
@@ -16,20 +18,27 @@ function Proof() {
     const [prof, setProf] = useState("");
     const [step, setStep] = useState(1);
     const [prog, setProg]=useState(14);
+    const [pred, setPred] = useState([]);
     const [label, setLabel] = useState("verify identity: Step 1");
     
-    //var date= new Date();
-    //const comp= `${(date.getTime()-567600000000)}`;
- 
-    
+
     useEffect(async () => {
         if (step == 2) {
             await axios.post('http://localhost:8021/myapi/wallet/credentials/schemas', { schema: schid })
                 .then(res => setAttr(res.data.schema.attrNames))
+                
         }
 
     }, [step])
 
+    useEffect(() => {
+
+        socket.on('msg', msg => { 
+        setmsg(msg)
+      
+   
+      })}, [msg])
+       
 
     function handleInputChange(att) {
 
@@ -44,6 +53,17 @@ function Proof() {
         setBoddy(b)
     }
 
+    function handleinputzkp(p) {
+
+        let b = pred
+        if (!(b.includes(p))) {
+            b.push(p)
+        }
+        else {
+            b.splice(b.indexOf(p), 1)
+        }
+        setPred(pred) 
+    }
 
     function handleinputschid(schid) {
         setSchid(schid) 
@@ -62,15 +82,13 @@ function Proof() {
     async function proofcred() {
 
         try {
-        
-        
-            await axios.post('http://localhost:8021/myapi/proof/send-request', {
+           await axios.post('http://localhost:8021/myapi/proof/send-request', {
                 comment: "This is a credential request",
                 connectionID: connid,
                 cred_def_id: credid,
                 attributes: boddy,
-                predicates: []
-                //predicates: [{name: "birthday_epoch", condition: "<=",comparisonValue: comp}]
+                predicates: pred
+              
             }).then(res=> setProf(res.data), setStep(3), setProg(42), setLabel("verify identity: Step 3"))
             
         } catch (error) {
@@ -87,12 +105,15 @@ function Proof() {
                 handleInputChange={handleInputChange}
                 handleinputcredid={handleinputcredid}
                 handleinputschid={handleinputschid}
+                handleinputzkp={handleinputzkp}
                 proofcred={proofcred}
                 handlebool={handlebool}
                 attr={attr}
                 step={step}
                 prof={prof}
                 connid={connid}
+                pred={pred}
+                msg={msg}
             
             />
         

@@ -13,6 +13,7 @@ function ConnectionManagement() {
     const [url, setUrl] = useState("");
     const [update, setUpdate] = useState(false);
     const [filter, setFilter] = useLocalStorage("filter", "all");
+    
 
 
     useEffect(async () => {
@@ -97,14 +98,6 @@ function ConnectionManagement() {
         }
     }
 
-/*     async function sendmessage(id) {
-        try {
-            await axios.post('http://localhost:8021/myapi/connections/send-message', { msg: "88" }, { conn_id: id })
-
-        } catch (error) {
-            console.error(error);
-        }
-    } */
 
 
 
@@ -135,6 +128,7 @@ function ConnectionManagement() {
 
                 <ConnectWith handleInputChange={handleInputChange}
                     receiveandaccept={receiveandaccept} />
+
 
             </div>
 

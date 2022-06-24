@@ -22,6 +22,7 @@ exports.checkcred = async (req, res, next) => {
     const ppp = req.body.presid; 
     resp= await axios.get(`http://localhost:8020/api/proof/${ppp}`);
     res.send(resp.data.presentation.attributes);
+    res.send(resp.data.presentation.predicates);
    
   } catch (error) {
     console.error(error);
